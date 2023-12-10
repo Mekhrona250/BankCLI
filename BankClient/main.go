@@ -16,7 +16,7 @@ func AddClient() {
 
   fmt.Scan(&age)
 
-  database[name] = 2023 - age
+
 
   fmt.Println("________________")
   fmt.Println("Готово")
@@ -39,7 +39,7 @@ func account()  {
 func ShowAccount() {
 	fmt.Println("Ваш баланс: ")
 	fmt.Println(client_account)
-	 fmt.Println("______________")
+	fmt.Println("______________")
 }
 
 func WithdrawMoney() {
@@ -72,11 +72,11 @@ func main() {
     fmt.Scan(&choice)
 
     if choice == 1 {
-      AddClient()
+    	AddClient()
     } else if choice == 2 {
-      account()
+    	account()
     } else if choice == 3 {
-      ShowAccount()
+    	ShowAccount()
     } else if choice == 4 {
 		WithdrawMoney()
 	} else if choice == 5 {
