@@ -5,31 +5,28 @@ import (
   "time"
 )
 
-var database = make(map[string]int)
-var client_account int = 0
-
-func AddClient() {
+  var database = make(map[string]int)
+  func AddClient() {
   var name string
-  var age int
-
   fmt.Scan(&name)
+  database[name] = 0
 
-  fmt.Scan(&age)
-
-
-
-  fmt.Println("________________")
-  fmt.Println("Готово")
-  fmt.Println("________________")
+	fmt.Println("________________")
+	fmt.Println("Готово")
+	fmt.Println("________________")
 
 }
+ 
 
-func account()  {
+	func account()  {
+	var name string
+	fmt.Scan(&name)	
+
 	var n int
 	fmt.Scan(&n)
-   
+  
 	if n > 0 {
-		client_account+=n
+		database[name]+=n
 	}
 	fmt.Println("________________")
 	fmt.Println("Готово")
@@ -37,18 +34,22 @@ func account()  {
 }
 
 func ShowAccount() {
+	var name string
+	fmt.Scan(&name)	
 	fmt.Println("Ваш баланс: ")
-	fmt.Println(client_account)
+	fmt.Println(database[name])
 	fmt.Println("______________")
 }
 
 func WithdrawMoney() {
+	var name string
+	fmt.Scan(&name)	
 	var minus int
 	fmt.Scan(&minus)
-	if minus > client_account {
+	if minus > database[name] {
 		fmt.Println("Недостаточно средств")
 	} else {
-		client_account-=minus
+		database[name]-=minus
 		fmt.Println("________________")
 		fmt.Println("Готово")
 		fmt.Println("________________")
@@ -59,6 +60,7 @@ func WithdrawMoney() {
 
 
 func main() {
+	
 
   for {
     var choice int
