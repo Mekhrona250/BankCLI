@@ -4,55 +4,36 @@ import (
   "fmt"
   "time"
 )
+var database = make(map[string]int)
 
-  var database = make(map[string]int)
-  func AddClient() {
-  var name string
-  fmt.Scan(&name)
-  database[name] = 0
-
-	fmt.Println("________________")
-	fmt.Println("Готово")
-	fmt.Println("________________")
+func AddClient(name string) {
+	database[name] = 0
 
 }
  
 
-	func account()  {
-	var name string
-	fmt.Scan(&name)	
-
+func account(name string)  {
 	var n int
 	fmt.Scan(&n)
   
 	if n > 0 {
 		database[name]+=n
 	}
-	fmt.Println("________________")
-	fmt.Println("Готово")
-	fmt.Println("________________")
 }
 
-func ShowAccount() {
-	var name string
-	fmt.Scan(&name)	
-	fmt.Println("Ваш баланс: ")
-	fmt.Println(database[name])
+func ShowAccount(name string) {
+	fmt.Print("Ваш баланс: ")
+	fmt.Print(database[name], "\n")
 	fmt.Println("______________")
 }
 
-func WithdrawMoney() {
-	var name string
-	fmt.Scan(&name)	
+func WithdrawMoney(name string) {
 	var minus int
 	fmt.Scan(&minus)
 	if minus > database[name] {
 		fmt.Println("Недостаточно средств")
 	} else {
 		database[name]-=minus
-		fmt.Println("________________")
-		fmt.Println("Готово")
-		fmt.Println("________________")
 	}
 
 	
@@ -64,6 +45,8 @@ func main() {
 
   for {
     var choice int
+	var name string
+
     fmt.Println("1. Создать клиента")
     fmt.Println("2. Пополнить счет клиента")
     fmt.Println("3. Показать баланс клиента")
@@ -73,17 +56,24 @@ func main() {
 
     fmt.Scan(&choice)
 
-    if choice == 1 {
-    	AddClient()
-    } else if choice == 2 {
-    	account()
-    } else if choice == 3 {
-    	ShowAccount()
-    } else if choice == 4 {
-		WithdrawMoney()
-	} else if choice == 5 {
+	if choice >= 5 {
 		break
 	}
+
+	fmt.Scan(&name)
+
+    if choice == 1 {
+    	AddClient(name)
+    } else if choice == 2 {
+    	account(name)
+    } else if choice == 3 {
+    	ShowAccount(name)
+    } else if choice == 4 {
+		WithdrawMoney(name)
+	}
+	fmt.Println("________________")
+	fmt.Println("Готово")
+	fmt.Println("________________")
 
     time.Sleep(3 * time.Second)
 
