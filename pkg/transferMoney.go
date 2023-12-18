@@ -1,6 +1,17 @@
 package pkg
 
-import "fmt"
+import (
+	"bankCLI/pkg/models"
+	"fmt"
+)
+
+// Проверка двух счетов
+// Подсчет комиссии
+// Перевод (
+//	Снятие денег с 1ого счета,
+//	Пополнение денег на 2ой счет,
+//	Пополенение Прибыль в банк
+//)
 
 func TransferMoney() {
 	var sender, recipient string
@@ -10,9 +21,17 @@ func TransferMoney() {
 
 	fmt.Scan(&sender)
 
-	balanceSender, ok := Database[sender]
+	var Sender *models.Account
+	var has bool
+	// проверка на наличие отправителя
+	for _, val := range Accounts {
+		if sender == val.Name {
+			has = true
+			Sender = val
+		}
+	}
 
-	if !ok {
+	if !has {
 		fmt.Println("Отсуствует счет отправителя")
 		return
 	}
@@ -20,9 +39,17 @@ func TransferMoney() {
 	fmt.Println("Введите имя получателя")
 	fmt.Scan(&recipient)
 
-	balanceRecipient, ok := Database[recipient]
+	has = false
+	var Recipient *models.Account
+	// проверка на наличие клиента
+	for _, val := range Accounts {
+		if recipient == val.Name {
+			has = true
+			Recipient = val
+		}
+	}
 
-	if !ok {
+	if !has {
 		fmt.Println("Отсуствует счет получателя")
 		return
 	}
@@ -30,22 +57,51 @@ func TransferMoney() {
 	fmt.Println("Введите сумму перевода")
 	fmt.Scan(&amount)
 
-	if balanceSender < amount {
+	if Sender.Balance < amount {
 		fmt.Println("Недостаточно средств")
 		return
 	}
 	var comission float64 = amount / 100 * Percent
 
-	Database[sender] = balanceSender - amount
-	Database[recipient] = (balanceRecipient + amount) - comission
-
-	balanceProfit, ok := Database["Profit"]
-
-	if !ok {
-		Database["Profit"] = 0
+	for _, val := range Accounts {
+		if sender == val.Name {
+			val.Balance = Sender.Balance - amount
+		}
 	}
 
-	Database["Profit"] = balanceProfit + comission
+	for _, val := range Accounts {
+		if recipient == val.Name {
+			val.Balance = Recipient.Balance + amount - comission
+		}
+	}
+	has = false
+	var balanceProfit float64
+	for _, val := range Accounts {
+		if "profit" == val.Name {
+			balanceProfit = val.Balance
+			has = true
+		}
+	}
+
+	if !has {
+		Accounts = append(Accounts, &models.Account{
+			Name:        "profit",
+			PhoneNumber: "554",
+			Balance:     0,
+		})
+	}
+
+	for _, val := range Accounts {
+		if "profit" == val.Name {
+			val.Balance = balanceProfit + comission
+		}
+	}
+
+	Transfers = append(Transfers, models.Transfer{
+		Sender:    Sender,
+		Recipient: Recipient,
+		Amount:    amount,
+	})
 
 	fmt.Println("Успешно переведено")
 }

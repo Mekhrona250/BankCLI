@@ -2,12 +2,19 @@ package main
 
 import (
 	"bankCLI/pkg"
+	"bankCLI/pkg/mock"
 	"fmt"
 )
 
-
+// Создание клиента, и его счет
+// Пополнить счет клиента
+// Посмотреть баланс клиента
+// Снять деньги с баланса
+// Ошибка недостаточно баланса
 
 func main() {
+	mock.FillCities()
+	fmt.Printf("%+v \n", pkg.Cities)
 	for {
 		var choice int
 
@@ -17,7 +24,8 @@ func main() {
 		fmt.Println("4. Снять деньги с баланса")
 		fmt.Println("5. Перевод денег")
 		fmt.Println("6. Получить прибыль банка")
-		fmt.Println("7. Выйти")
+		fmt.Println("7. Получить общий счет по определенному городу")
+		fmt.Println("8. Выйти")
 
 		fmt.Scan(&choice)
 
@@ -35,7 +43,9 @@ func main() {
 		case 6:
 			pkg.ShowProfit()
 		case 7:
-			return
+			pkg.ShowBalanceOfCity()
 		}
 	}
 }
+
+// Ввести общую сумму всех счетов клиентов, которые проживают в определенном городе
