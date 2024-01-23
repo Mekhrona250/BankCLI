@@ -2,7 +2,7 @@ package transport
 
 import (
 	"fmt"
-	"sqlBankCLI/pkg/models"
+	"sqlBankCLI/internal/models"
 )
 
 func (t *Transport) CreateBankAccount() {
@@ -21,6 +21,7 @@ func (t *Transport) CreateBankAccount() {
 	fmt.Println("Введите ваш адрес:")
 
 	fmt.Scan(&account.Address)
+	
 	err := t.Svc.CreateBankAccount(account)
 
 	if err != nil {

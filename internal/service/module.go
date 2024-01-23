@@ -1,8 +1,8 @@
 package service
 
 import (
-	"sqlBankCLI/pkg/models"
-	"sqlBankCLI/pkg/repository"
+	"sqlBankCLI/internal/models"
+	"sqlBankCLI/internal/repository"
 )
 
 type Service struct {

@@ -1,8 +1,8 @@
 package service
 
 import (
+	"sqlBankCLI/internal/models"
 	"sqlBankCLI/pkg/errors"
-	"sqlBankCLI/pkg/models"
 )
 
 func (s *Service) ShowAccountBalance(account models.Account) (name string, balance float64, err error) {
